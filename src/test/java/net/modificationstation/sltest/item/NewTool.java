@@ -6,6 +6,6 @@ import net.modificationstation.stationapi.api.registry.Identifier;
 
 public class NewTool extends ToolItem {
     public NewTool(Identifier identifier) {
-        super(identifier, 3, 500, 4F, 9000F);
+        super(identifier, 3, 500, 8F, 9000F);
     }
 }

@@ -22,7 +22,9 @@ public class ToolItem extends ItemBase implements ItemTemplate, CustomTooltipPro
     protected int durability;
     @Getter
     protected int miningLevel;
+    @Getter
     protected float miningSpeed;
+    @Getter
     protected float attackDamage;
 
     // Base Constructor with Raw ID
@@ -31,7 +33,7 @@ public class ToolItem extends ItemBase implements ItemTemplate, CustomTooltipPro
         this.maxStackSize = 1;
     }
 
-    // Base Constroctor with Identifier
+    // Base Constructor with Identifier
     public ToolItem(Identifier identifier){
         this(ItemTemplate.getNextId());
         ItemTemplate.onConstructor(this, identifier);
@@ -86,11 +88,27 @@ public class ToolItem extends ItemBase implements ItemTemplate, CustomTooltipPro
         }
     }
 
-    // Material
+    // Legacy Stuff
     @Deprecated
     public ToolMaterial getMaterial(ItemInstance itemInstance) {
         return material;
     }
+
+    @Override
+    public boolean isSuitableFor(ItemInstance itemStack, BlockState state) {
+        return state.isIn(effectiveTags);
+    }
+
+    @Override
+    public float getMiningSpeedMultiplier(ItemInstance itemStack, BlockState state) {
+        return isSuitableFor(itemStack, state) ? this.miningSpeed : 1F;
+    }
+
+    @Override
+    public int getAttack(EntityBase arg) {
+        return (int)this.attackDamage;
+    }
+
 
     // Durability
     @Override
@@ -105,35 +123,25 @@ public class ToolItem extends ItemBase implements ItemTemplate, CustomTooltipPro
     }
 
     // Attack
-    @Override
-    public int getAttack(EntityBase arg) {
-        return (int)this.attackDamage;
-    }
-
     public ItemBase setAttackDamage(float attackDamage) {
         this.attackDamage = attackDamage;
         return this;
     }
+
     // Mining Speed
-
-    @Override
-    public float getMiningSpeedMultiplier(ItemInstance itemStack, BlockState state) {
-        return this.miningSpeed;
-    }
-
     public ItemBase setMiningSpeed(float miningSpeed) {
         this.miningSpeed = miningSpeed;
         return this;
     }
-    // Mining Level
 
+    // Mining Level
     public ItemBase setMiningLevel(int miningLevel) {
         this.miningLevel = miningLevel;
         return this;
     }
 
-    // PostHit and PostMine
 
+    // PostHit and PostMine
     @Override
     public boolean postHit(ItemInstance itemInstance, Living otherEntity, Living player) {
         itemInstance.applyDamage(2, player);
@@ -147,7 +155,6 @@ public class ToolItem extends ItemBase implements ItemTemplate, CustomTooltipPro
     }
 
     // Render
-
     @Environment(EnvType.CLIENT)
     public boolean isRendered3d() {
         return true;
