@@ -1,26 +1,21 @@
 package net.modificationstation.stationapi.api.block;
 
-import net.minecraft.client.Minecraft;
-import net.modificationstation.stationapi.api.StationAPI;
 import net.modificationstation.stationapi.api.registry.Identifier;
 import net.modificationstation.stationapi.api.registry.ModID;
 
-import java.util.HashMap;
+public enum MiningLevels {
+    WOOD(ModID.MINECRAFT.id("wood")),
+    STONE(ModID.MINECRAFT.id("stone")),
+    IRON(ModID.MINECRAFT.id("iron")),
+    DIAMOND(ModID.MINECRAFT.id("diamond"));
 
-public class MiningLevels {
-    private static HashMap<Identifier, Integer> miningLevels = new HashMap<Identifier, Integer>();
+    private final Identifier identifier;
 
-    static {
-        miningLevels.put(ModID.MINECRAFT.id("wood"),0);
-        miningLevels.put(ModID.MINECRAFT.id("stone"),1);
-        miningLevels.put(ModID.MINECRAFT.id("iron"),2);
-        miningLevels.put(ModID.MINECRAFT.id("diamond"),3);
+    MiningLevels(Identifier identifier) {
+        this.identifier = identifier;
     }
 
-    public static int getMiningLevel(Identifier identifier){
-        if(miningLevels.containsKey(identifier)){
-            return miningLevels.get(identifier);
-        }
-        return 0;
+    public Identifier getIdentifier() {
+        return identifier;
     }
 }

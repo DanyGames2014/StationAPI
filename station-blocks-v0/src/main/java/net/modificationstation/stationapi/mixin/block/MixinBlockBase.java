@@ -1,8 +1,9 @@
 package net.modificationstation.stationapi.mixin.block;
 
 import net.minecraft.block.BlockBase;
-import net.modificationstation.stationapi.api.block.StationBlock;
 import net.modificationstation.stationapi.api.block.MiningLevels;
+import net.modificationstation.stationapi.api.block.StationBlock;
+import net.modificationstation.stationapi.api.block.MiningLevel;
 import net.modificationstation.stationapi.api.registry.Identifier;
 import net.modificationstation.stationapi.api.registry.ModID;
 import org.spongepowered.asm.mixin.Mixin;
@@ -34,7 +35,13 @@ public abstract class MixinBlockBase implements StationBlock {
 
     @Override
     public BlockBase setMiningLevel(Identifier identifier) {
-        this.miningLevel = MiningLevels.getMiningLevel(identifier);
+        this.miningLevel = MiningLevel.getMiningLevel(identifier);
+        return BlockBase.class.cast(this);
+    }
+
+    @Override
+    public BlockBase setMiningLevel(MiningLevels miningLevel) {
+        this.miningLevel = MiningLevel.getMiningLevel(miningLevel.getIdentifier());
         return BlockBase.class.cast(this);
     }
 }

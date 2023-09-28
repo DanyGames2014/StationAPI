@@ -14,6 +14,8 @@ public interface StationBlock extends RemappableRawIdHolder {
 
     default BlockBase setMiningLevel(Identifier identifier){ return Util.assertImpl(); }
 
+    default BlockBase setMiningLevel(MiningLevels miningLevel){return Util.assertImpl(); }
+
     default BlockBase setTranslationKey(ModID modID, String translationKey) {
         return Util.assertImpl();
     }
