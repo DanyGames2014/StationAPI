@@ -1,8 +1,10 @@
 package net.modificationstation.stationapi.api.item.toolnew;
 
-public interface ToolMaterial {
+import net.modificationstation.stationapi.api.registry.Identifier;
+
+public interface StationToolMaterial {
     float getAttackDamage();
-    int getMiningLevel();
+    Identifier getMiningLevel();
     float getMiningSpeed();
     int getDurability();
 

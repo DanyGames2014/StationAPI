@@ -16,7 +16,6 @@ import net.modificationstation.stationapi.api.mod.entrypoint.Entrypoint;
 import net.modificationstation.stationapi.api.mod.entrypoint.EventBusPolicy;
 import net.modificationstation.stationapi.api.registry.BlockRegistry;
 import net.modificationstation.stationapi.api.registry.ItemRegistry;
-import net.modificationstation.stationapi.api.registry.ModID;
 import net.modificationstation.stationapi.api.registry.Registry;
 import net.modificationstation.stationapi.api.util.Util;
 
@@ -27,7 +26,6 @@ import java.util.function.Supplier;
 import static net.mine_diver.unsafeevents.listener.ListenerPriority.LOW;
 import static net.minecraft.block.BlockBase.*;
 import static net.modificationstation.stationapi.api.StationAPI.LOGGER;
-import static net.modificationstation.stationapi.api.StationAPI.MODID;
 import static net.modificationstation.stationapi.api.registry.Identifier.of;
 
 @Entrypoint(eventBus = @EventBusPolicy(registerInstance = false))

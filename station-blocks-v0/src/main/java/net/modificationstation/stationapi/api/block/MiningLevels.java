@@ -1,8 +1,10 @@
 package net.modificationstation.stationapi.api.block;
 
+import lombok.Getter;
 import net.modificationstation.stationapi.api.registry.Identifier;
 import net.modificationstation.stationapi.api.registry.ModID;
 
+@Getter
 public enum MiningLevels {
     WOOD(ModID.MINECRAFT.id("wood")),
     STONE(ModID.MINECRAFT.id("stone")),
@@ -15,7 +17,4 @@ public enum MiningLevels {
         this.identifier = identifier;
     }
 
-    public Identifier getIdentifier() {
-        return identifier;
-    }
 }

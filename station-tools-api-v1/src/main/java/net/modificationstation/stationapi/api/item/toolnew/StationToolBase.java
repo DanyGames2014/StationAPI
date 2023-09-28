@@ -10,14 +10,22 @@ import net.minecraft.item.ItemBase;
 import net.minecraft.item.ItemInstance;
 import net.modificationstation.stationapi.api.StationAPI;
 import net.modificationstation.stationapi.api.block.BlockState;
+import net.modificationstation.stationapi.api.block.MiningLevel;
 import net.modificationstation.stationapi.api.client.gui.CustomTooltipProvider;
 import net.modificationstation.stationapi.api.registry.Identifier;
 import net.modificationstation.stationapi.api.tag.TagKey;
 
-public class ToolItem extends ItemBase implements ItemTemplate, CustomTooltipProvider {
+public class StationToolBase extends ItemBase implements ItemTemplate, CustomTooltipProvider {
 
-    private TagKey<BlockBase> effectiveTags;
-    private ToolMaterial material;
+    /**
+     * The tag this tool will be effective on
+     */
+    private TagKey<BlockBase> effectiveTag;
+    /**
+     * The material this tool was generated from
+     */
+    private StationToolMaterial material;
+
 
     protected int durability;
     @Getter
@@ -27,46 +35,65 @@ public class ToolItem extends ItemBase implements ItemTemplate, CustomTooltipPro
     @Getter
     protected float attackDamage;
 
-    // Base Constructor with Raw ID
-    private ToolItem(int rawId) {
+    /**
+     * Base constructor with Raw ID
+     * @param rawId Raw ID of the Item
+     */
+    private StationToolBase(int rawId) {
         super(rawId);
         this.maxStackSize = 1;
     }
 
-    // Base Constructor with Identifier
-    public ToolItem(Identifier identifier){
+
+    /**
+     * Base constructor with only modifier, this will generate a tool where all the parameters are 0 and isnt effective on anything
+     * @param identifier Identifier
+     */
+    public StationToolBase(Identifier identifier){
         this(ItemTemplate.getNextId());
         ItemTemplate.onConstructor(this, identifier);
     }
 
-    // Constructor to create the tool from a Material
-    public ToolItem(Identifier identifier, ToolMaterial toolMaterial){
+    /**
+     * Creates a tool using a specified material
+     * @param identifier Identifier
+     * @param toolMaterial Material to take the tool properties from
+     */
+    public StationToolBase(Identifier identifier, StationToolMaterial toolMaterial){
         this(identifier);
         this.material = toolMaterial;
         this.durability = toolMaterial.getDurability();
         this.miningSpeed = toolMaterial.getMiningSpeed();
         this.attackDamage = toolMaterial.getAttackDamage();
-        this.miningLevel = toolMaterial.getMiningLevel();
+        this.miningLevel = MiningLevel.getMiningLevel(toolMaterial.getMiningLevel());
     }
 
-    // Constructor to create the tool from its raw properties
-    public ToolItem(Identifier identifier, int miningLevel, int durability, float miningSpeed, float attackDamage){
+
+    /**
+     * Creates a tool using the specified properties
+     * @param identifier Identifier
+     * @param miningLevel Mining Level
+     * @param durability Duabilitiy
+     * @param miningSpeed Mining Speed
+     * @param attackDamage Attack Damage
+     */
+    public StationToolBase(Identifier identifier, Identifier miningLevel, int durability, float miningSpeed, float attackDamage){
         this(identifier, new BaseToolMaterial(miningLevel, durability, miningSpeed, attackDamage));
     }
 
     // Effective Blocks
-    public ToolItem setEffectiveBlocks(TagKey<BlockBase> effectiveBlocks) {
-        this.effectiveTags = effectiveBlocks;
+    public StationToolBase setEffectiveBlocks(TagKey<BlockBase> effectiveBlocks) {
+        this.effectiveTag = effectiveBlocks;
         return this;
     }
 
-    public ToolItem setEffectiveBlocks(MineableTag tag){
-        this.effectiveTags = tag.getTagKey();
+    public StationToolBase setEffectiveBlocks(MineableTag tag){
+        this.effectiveTag = tag.getTagKey();
         return this;
     }
 
     public TagKey<BlockBase> getEffectiveBlocks() {
-        return effectiveTags;
+        return effectiveTag;
     }
 
     // DEBUG
@@ -90,13 +117,13 @@ public class ToolItem extends ItemBase implements ItemTemplate, CustomTooltipPro
 
     // Legacy Stuff
     @Deprecated
-    public ToolMaterial getMaterial(ItemInstance itemInstance) {
+    public StationToolMaterial getMaterial(ItemInstance itemInstance) {
         return material;
     }
 
     @Override
     public boolean isSuitableFor(ItemInstance itemStack, BlockState state) {
-        return state.isIn(effectiveTags) && (this.miningLevel >= state.getBlock().getMiningLevel());
+        return state.isIn(effectiveTag) && (this.miningLevel >= state.getBlock().getMiningLevel());
     }
 
     @Override
