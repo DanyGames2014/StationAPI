@@ -31,7 +31,8 @@ public class ItemListener {
         testShears = new TestShears(MODID.id("test_shears")).setTranslationKey(MODID, "test_shears");
         pacifistSword = new PacifistSword(MODID.id("pacifist_sword")).setTranslationKey(MODID, "pacifist_sword");
         dullPickaxe = new DullPickaxe(MODID.id("dull_pickaxe")).setTranslationKey(MODID, "dull_pickaxe");
-        newTool = new NewTool(MODID.id("new_tool")).setEffectiveBlocks(MineableTag.PICKAXE).setTranslationKey(MODID, "new_tool");
+        newTool = new NewTool(MODID.id("new_tool"),1).setEffectiveBlocks(MineableTag.PICKAXE).setTranslationKey(MODID, "new_tool");
+        newTool = new NewTool(MODID.id("new_tool_diamond"),3).setEffectiveBlocks(MineableTag.PICKAXE).setTranslationKey(MODID, "new_tool_diamond");
     }
 
     public static ItemBase testItem;

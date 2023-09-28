@@ -10,6 +10,7 @@ import net.minecraft.item.ItemBase;
 import net.minecraft.item.ItemInstance;
 import net.modificationstation.stationapi.api.StationAPI;
 import net.modificationstation.stationapi.api.block.BlockState;
+import net.modificationstation.stationapi.api.block.MiningLevels;
 import net.modificationstation.stationapi.api.client.gui.CustomTooltipProvider;
 import net.modificationstation.stationapi.api.registry.Identifier;
 import net.modificationstation.stationapi.api.tag.TagKey;
@@ -96,7 +97,7 @@ public class ToolItem extends ItemBase implements ItemTemplate, CustomTooltipPro
 
     @Override
     public boolean isSuitableFor(ItemInstance itemStack, BlockState state) {
-        return state.isIn(effectiveTags);
+        return state.isIn(effectiveTags) && (this.miningLevel >= state.getBlock().getMiningLevel());
     }
 
     @Override

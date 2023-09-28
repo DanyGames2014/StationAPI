@@ -7,6 +7,12 @@ import net.modificationstation.stationapi.api.registry.RemappableRawIdHolder;
 import net.modificationstation.stationapi.api.util.Util;
 
 public interface StationBlock extends RemappableRawIdHolder {
+    
+    int miningLevel = 0;
+
+    default int getMiningLevel() { return Util.assertImpl(); }
+
+    default BlockBase setMiningLevel(Identifier identifier){ return Util.assertImpl(); }
 
     default BlockBase setTranslationKey(ModID modID, String translationKey) {
         return Util.assertImpl();
