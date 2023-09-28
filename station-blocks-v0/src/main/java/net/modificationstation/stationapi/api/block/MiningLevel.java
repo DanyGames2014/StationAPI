@@ -5,8 +5,13 @@ import net.modificationstation.stationapi.api.registry.ModID;
 
 import java.util.HashMap;
 
-public class MiningLevel {
+public class MiningLevels {
     //TODO : Event that fires before Blocks and Items are registered to manipulate the mining levels because once the blocks and items are initialized they only take the int to prevent lookups here for every mining level check
+
+    public static final Identifier WOOD = ModID.MINECRAFT.id("wood");
+    public static final Identifier STONE = ModID.MINECRAFT.id("stone");
+    public static final Identifier IRON = ModID.MINECRAFT.id("iron");
+    public static final Identifier DIAMOND = ModID.MINECRAFT.id("diamond");
 
     private static HashMap<Identifier, Integer> miningLevels = new HashMap<>();
 
