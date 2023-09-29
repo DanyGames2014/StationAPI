@@ -12,9 +12,12 @@ import net.modificationstation.stationapi.api.StationAPI;
 import net.modificationstation.stationapi.api.block.BlockState;
 import net.modificationstation.stationapi.api.block.MiningLevels;
 import net.modificationstation.stationapi.api.client.gui.CustomTooltipProvider;
+import net.modificationstation.stationapi.api.item.toolnew.material.StationToolMaterial;
+import net.modificationstation.stationapi.api.item.toolnew.material.StationToolMaterialBase;
 import net.modificationstation.stationapi.api.registry.Identifier;
 import net.modificationstation.stationapi.api.tag.TagKey;
 
+@SuppressWarnings("unused")
 public class StationToolBase extends ItemBase implements ItemTemplate, CustomTooltipProvider {
 
     /**
@@ -24,7 +27,7 @@ public class StationToolBase extends ItemBase implements ItemTemplate, CustomToo
     /**
      * The material this tool was generated from
      */
-    private StationToolMaterial material;
+    private StationToolMaterialBase material;
 
 
     protected int durability;
@@ -44,7 +47,6 @@ public class StationToolBase extends ItemBase implements ItemTemplate, CustomToo
         this.maxStackSize = 1;
     }
 
-
     /**
      * Base constructor with only modifier, this will generate a tool where all the parameters are 0 and isnt effective on anything
      * @param identifier Identifier
@@ -54,6 +56,15 @@ public class StationToolBase extends ItemBase implements ItemTemplate, CustomToo
         ItemTemplate.onConstructor(this, identifier);
     }
 
+    public StationToolBase(int rawId, StationToolMaterial toolMaterial) {
+        this(rawId);
+        this.material = (StationToolMaterialBase) toolMaterial;
+        this.durability = toolMaterial.getDurability();
+        this.miningSpeed = toolMaterial.getMiningSpeed();
+        this.attackDamage = toolMaterial.getAttackDamage(ToolClass.BASE.getIndex());
+        this.miningLevel = MiningLevels.getMiningLevel(toolMaterial.getMiningLevel());
+    }
+
     /**
      * Creates a tool using a specified material
      * @param identifier Identifier
@@ -61,10 +72,10 @@ public class StationToolBase extends ItemBase implements ItemTemplate, CustomToo
      */
     public StationToolBase(Identifier identifier, StationToolMaterial toolMaterial){
         this(identifier);
-        this.material = toolMaterial;
+        this.material = (StationToolMaterialBase) toolMaterial;
         this.durability = toolMaterial.getDurability();
         this.miningSpeed = toolMaterial.getMiningSpeed();
-        this.attackDamage = toolMaterial.getAttackDamage(0);
+        this.attackDamage = toolMaterial.getAttackDamage(ToolClass.BASE.getIndex());
         this.miningLevel = MiningLevels.getMiningLevel(toolMaterial.getMiningLevel());
     }
 
@@ -78,7 +89,7 @@ public class StationToolBase extends ItemBase implements ItemTemplate, CustomToo
      * @param attackDamage Attack Damage
      */
     public StationToolBase(Identifier identifier, Identifier miningLevel, int durability, float miningSpeed, float attackDamage){
-        this(identifier, new BaseToolMaterial(miningLevel, durability, miningSpeed, new float[]{attackDamage}));
+        this(identifier, new StationToolMaterialBase(miningLevel, durability, miningSpeed, new float[]{attackDamage}));
     }
 
     // Effective Blocks
@@ -117,7 +128,7 @@ public class StationToolBase extends ItemBase implements ItemTemplate, CustomToo
 
     // Legacy Stuff
     @Deprecated
-    public StationToolMaterial getMaterial(ItemInstance itemInstance) {
+    public StationToolMaterialBase getMaterial(ItemInstance itemInstance) {
         return material;
     }
 

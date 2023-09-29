@@ -5,6 +5,7 @@ import net.modificationstation.stationapi.api.registry.BlockRegistry;
 import net.modificationstation.stationapi.api.registry.Identifier;
 import net.modificationstation.stationapi.api.tag.TagKey;
 
+@SuppressWarnings("LombokGetterMayBeUsed")
 public enum MineableTag {
     PICKAXE(TagKey.of(BlockRegistry.INSTANCE.getKey(), Identifier.of("mineable/pickaxe"))),
     AXE(TagKey.of(BlockRegistry.INSTANCE.getKey(), Identifier.of("mineable/axe"))),

@@ -1,21 +1,30 @@
 package net.modificationstation.stationapi.impl.vanillafix.item;
 
 import net.mine_diver.unsafeevents.listener.EventListener;
+import net.minecraft.entity.Item;
 import net.minecraft.item.ItemBase;
+import net.minecraft.item.tool.Sword;
+import net.minecraft.item.tool.ToolMaterial;
 import net.modificationstation.stationapi.api.StationAPI;
 import net.modificationstation.stationapi.api.event.registry.ItemRegistryEvent;
+import net.modificationstation.stationapi.api.item.toolnew.StationToolSword;
+import net.modificationstation.stationapi.api.item.toolnew.material.StationToolMaterials;
 import net.modificationstation.stationapi.api.mod.entrypoint.Entrypoint;
 import net.modificationstation.stationapi.api.mod.entrypoint.EventBusPolicy;
 import net.modificationstation.stationapi.api.registry.ItemRegistry;
+import net.modificationstation.stationapi.api.registry.ModID;
 import net.modificationstation.stationapi.api.registry.Registry;
 
 import static net.minecraft.item.ItemBase.*;
 import static net.modificationstation.stationapi.api.StationAPI.LOGGER;
+import static net.modificationstation.stationapi.api.StationAPI.MODID;
 import static net.modificationstation.stationapi.api.registry.Identifier.of;
 
 @Entrypoint(eventBus = @EventBusPolicy(registerInstance = false))
 @EventListener(phase = StationAPI.INTERNAL_PHASE)
 public final class VanillaItemFixImpl {
+
+    //public static final ItemBase wooden_sword = (new Sword(12, ToolMaterial.field_1688)).setTexturePosition(0, 4).setTranslationKey("swordWood");
 
     @EventListener
     private static void registerItems(ItemRegistryEvent event) {

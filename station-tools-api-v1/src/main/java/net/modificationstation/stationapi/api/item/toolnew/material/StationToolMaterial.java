@@ -1,4 +1,4 @@
-package net.modificationstation.stationapi.api.item.toolnew;
+package net.modificationstation.stationapi.api.item.toolnew.material;
 
 import net.modificationstation.stationapi.api.registry.Identifier;
 

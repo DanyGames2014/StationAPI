@@ -9,9 +9,12 @@ import net.modificationstation.stationapi.api.block.MiningLevels;
 import net.modificationstation.stationapi.api.event.registry.ItemRegistryEvent;
 import net.modificationstation.stationapi.api.item.tool.ToolMaterialFactory;
 import net.modificationstation.stationapi.api.item.toolnew.MineableTag;
+import net.modificationstation.stationapi.api.item.toolnew.material.StationToolMaterials;
+import net.modificationstation.stationapi.api.item.toolnew.StationToolPickaxe;
 import net.modificationstation.stationapi.api.registry.ItemRegistry;
 import net.modificationstation.stationapi.api.registry.Registry;
 import net.modificationstation.stationapi.api.template.item.BlockStateItem;
+import net.modificationstation.stationapi.api.template.item.tool.TemplatePickaxe;
 
 import static net.modificationstation.sltest.SLTest.MODID;
 
@@ -32,10 +35,10 @@ public class ItemListener {
         testShears = new TestShears(MODID.id("test_shears")).setTranslationKey(MODID, "test_shears");
         pacifistSword = new PacifistSword(MODID.id("pacifist_sword")).setTranslationKey(MODID, "pacifist_sword");
         dullPickaxe = new DullPickaxe(MODID.id("dull_pickaxe")).setTranslationKey(MODID, "dull_pickaxe");
-        newTool = new NewTool(MODID.id("new_tool_wood"), MiningLevels.WOOD).setEffectiveBlocks(MineableTag.PICKAXE).setTranslationKey(MODID, "new_tool_wood");
-        newTool = new NewTool(MODID.id("new_tool_stone"),MiningLevels.STONE).setEffectiveBlocks(MineableTag.PICKAXE).setTranslationKey(MODID, "new_tool_stone");
-        newTool = new NewTool(MODID.id("new_tool_iron"),MiningLevels.IRON).setEffectiveBlocks(MineableTag.PICKAXE).setTranslationKey(MODID, "new_tool_iron");
-        newTool = new NewTool(MODID.id("new_tool_diamond"),MiningLevels.DIAMOND).setEffectiveBlocks(MineableTag.PICKAXE).setTranslationKey(MODID, "new_tool_diamond");
+        newTool = new TemplatePickaxe(MODID.id("new_tool_wood"), StationToolMaterials.WOOD).setEffectiveBlocks(MineableTag.PICKAXE).setTranslationKey(MODID, "new_tool_wood");
+        newTool = new TemplatePickaxe(MODID.id("new_tool_stone"),StationToolMaterials.STONE).setEffectiveBlocks(MineableTag.PICKAXE).setTranslationKey(MODID, "new_tool_stone");
+        newTool = new TemplatePickaxe(MODID.id("new_tool_iron"),StationToolMaterials.IRON).setEffectiveBlocks(MineableTag.PICKAXE).setTranslationKey(MODID, "new_tool_iron");
+        newTool = new TemplatePickaxe(MODID.id("new_tool_diamond"),StationToolMaterials.DIAMOND).setEffectiveBlocks(MineableTag.PICKAXE).setTranslationKey(MODID, "new_tool_diamond");
     }
 
     public static ItemBase testItem;
