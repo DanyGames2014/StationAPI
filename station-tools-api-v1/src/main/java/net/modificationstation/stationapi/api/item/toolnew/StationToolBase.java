@@ -10,7 +10,7 @@ import net.minecraft.item.ItemBase;
 import net.minecraft.item.ItemInstance;
 import net.modificationstation.stationapi.api.StationAPI;
 import net.modificationstation.stationapi.api.block.BlockState;
-import net.modificationstation.stationapi.api.block.MiningLevel;
+import net.modificationstation.stationapi.api.block.MiningLevels;
 import net.modificationstation.stationapi.api.client.gui.CustomTooltipProvider;
 import net.modificationstation.stationapi.api.registry.Identifier;
 import net.modificationstation.stationapi.api.tag.TagKey;
@@ -64,8 +64,8 @@ public class StationToolBase extends ItemBase implements ItemTemplate, CustomToo
         this.material = toolMaterial;
         this.durability = toolMaterial.getDurability();
         this.miningSpeed = toolMaterial.getMiningSpeed();
-        this.attackDamage = toolMaterial.getAttackDamage();
-        this.miningLevel = MiningLevel.getMiningLevel(toolMaterial.getMiningLevel());
+        this.attackDamage = toolMaterial.getAttackDamage(0);
+        this.miningLevel = MiningLevels.getMiningLevel(toolMaterial.getMiningLevel());
     }
 
 
@@ -78,7 +78,7 @@ public class StationToolBase extends ItemBase implements ItemTemplate, CustomToo
      * @param attackDamage Attack Damage
      */
     public StationToolBase(Identifier identifier, Identifier miningLevel, int durability, float miningSpeed, float attackDamage){
-        this(identifier, new BaseToolMaterial(miningLevel, durability, miningSpeed, attackDamage));
+        this(identifier, new BaseToolMaterial(miningLevel, durability, miningSpeed, new float[]{attackDamage}));
     }
 
     // Effective Blocks
@@ -121,6 +121,7 @@ public class StationToolBase extends ItemBase implements ItemTemplate, CustomToo
         return material;
     }
 
+    // Flattening
     @Override
     public boolean isSuitableFor(ItemInstance itemStack, BlockState state) {
         return state.isIn(effectiveTag) && (this.miningLevel >= state.getBlock().getMiningLevel());
@@ -162,8 +163,8 @@ public class StationToolBase extends ItemBase implements ItemTemplate, CustomToo
     }
 
     // Mining Level
-    public ItemBase setMiningLevel(int miningLevel) {
-        this.miningLevel = miningLevel;
+    public ItemBase setMiningLevel(Identifier miningLevel) {
+        this.miningLevel = MiningLevels.getMiningLevel(miningLevel);
         return this;
     }
 

@@ -18,3 +18,7 @@ item.variationBlockActive.name=Variation Block Active
 item.test_shears.name=Test Shears
 item.pacifist_sword.name=Pacifist Sword
 item.dull_pickaxe.name=Dull Pickaxe
+item.new_tool_wood.name=New Wood Tool
+item.new_tool_stone.name=New Stone Tool
+item.new_tool_iron.name=New Iron Tool
+item.new_tool_diamond.name=New Diamond Tool
